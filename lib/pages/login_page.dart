@@ -21,18 +21,20 @@ class LoginPage extends StatelessWidget {
 
   Future<void> _loginWithEmailPassword(BuildContext context) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      await _firebaseAuth
+          .signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
-      );
-      //     .then((value) {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => HomePage(),
-      //     ),
-      //   );
-      // });
+      )
+          .then((value) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+          (Route<dynamic> route) => false,
+        );
+      });
     } catch (e) {
       print("...........................................");
       ScaffoldMessenger.of(context).showSnackBar(

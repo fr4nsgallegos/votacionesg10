@@ -48,11 +48,12 @@ class CreateAccountPage extends StatelessWidget {
           "createdAt": FieldValue.serverTimestamp(),
         });
         // print(userCredential);
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => HomePage(),
           ),
+          (Route<dynamic> route) => false,
         );
 
         ScaffoldMessenger.of(context).showSnackBar(
