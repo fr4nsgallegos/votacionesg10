@@ -83,12 +83,101 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
                   height: heigthScreen / 2,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(50),
                     ),
+                  ),
+                  child: Column(
+                    children: [
+                      TextField(
+                        cursorColor: Colors.orange,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                            labelText: "Correo electrónico",
+                            hintText: "Ingresa el correo",
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.orange))),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      TextField(
+                        obscureText: true,
+                        cursorColor: Colors.orange,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                          labelText: "Contraseña",
+                          hintText: "Ingresa la contraseña",
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(value: false, onChanged: (value) {}),
+                              Text(
+                                "Recuérdame",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          TextButton(
+                              onPressed: () {},
+                              child: Text("¿Olvidaste la contraseña?"))
+                        ],
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 70,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            "LOGIN",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xff6F9575),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 32,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("¿No tienes una cuenta?"),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                "CREA UNA",
+                                style: TextStyle(
+                                    color: Color(0xff173D31),
+                                    fontWeight: FontWeight.bold),
+                              ))
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ],
