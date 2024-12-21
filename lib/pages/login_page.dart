@@ -1,6 +1,26 @@
+import 'package:appvotacionesg10/pages/create_account_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  Future<void> _loginWithEmailPassword() async {
+    try {
+      _firebaseAuth
+          .signInWithEmailAndPassword(
+            email: _emailController.text,
+            password: _passwordController.text,
+          )
+          .then((value) {});
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double heigthScreen = MediaQuery.of(context).size.height;
@@ -94,6 +114,7 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     children: [
                       TextField(
+                        controller: _emailController,
                         cursorColor: Colors.orange,
                         style: TextStyle(fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
@@ -106,6 +127,7 @@ class LoginPage extends StatelessWidget {
                         height: 24,
                       ),
                       TextField(
+                        controller: _passwordController,
                         obscureText: true,
                         cursorColor: Colors.orange,
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -144,7 +166,9 @@ class LoginPage extends StatelessWidget {
                         width: double.infinity,
                         height: 70,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _loginWithEmailPassword();
+                          },
                           child: Text(
                             "LOGIN",
                             style: TextStyle(
@@ -168,13 +192,21 @@ class LoginPage extends StatelessWidget {
                             width: 8,
                           ),
                           TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                "CREA UNA",
-                                style: TextStyle(
-                                    color: Color(0xff173D31),
-                                    fontWeight: FontWeight.bold),
-                              ))
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateAccountPage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "CREA UNA",
+                              style: TextStyle(
+                                  color: Color(0xff173D31),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ],
                       )
                     ],
