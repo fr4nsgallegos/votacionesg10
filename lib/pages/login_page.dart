@@ -2,6 +2,7 @@ import 'package:appvotacionesg10/pages/create_account_page.dart';
 import 'package:appvotacionesg10/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
@@ -9,8 +10,23 @@ class LoginPage extends StatelessWidget {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> signInWithGoogle(BuildContext context) async {
-    try {} catch (e) {}
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    try {
+      GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+
+        User? user = userCredential.user;
+      }
+    } catch (e) {}
   }
 
   String mapErrorAuth(String errorMessage) {
