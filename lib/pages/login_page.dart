@@ -9,6 +9,10 @@ class LoginPage extends StatelessWidget {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  Future<void> signInWithGoogle(BuildContext context) async {
+    try {} catch (e) {}
+  }
+
   String mapErrorAuth(String errorMessage) {
     if (errorMessage.contains("invalid-credential")) {
       return "Usuario o contraseña incorrectos";
@@ -154,7 +158,7 @@ class LoginPage extends StatelessWidget {
                                 borderSide: BorderSide(color: Colors.orange))),
                       ),
                       SizedBox(
-                        height: 24,
+                        height: 16,
                       ),
                       TextField(
                         controller: _passwordController,
@@ -190,7 +194,7 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 24,
+                        height: 8,
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -212,7 +216,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 32,
+                        height: 8,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -237,6 +241,23 @@ class LoginPage extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Ó inicia sesión con"),
+                          SizedBox(
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: CircleBorder(),
+                                    padding: EdgeInsets.all(8)),
+                                onPressed: () {},
+                                child: Image.asset(
+                                  "assets/icons/google.png",
+                                  height: 30,
+                                )),
+                          )
                         ],
                       )
                     ],

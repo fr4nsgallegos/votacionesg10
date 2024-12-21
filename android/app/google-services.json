@@ -12,7 +12,12 @@
           "package_name": "com.groupg10.connectionfirebase1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "380211533338-g1a7ko491lbso5o0k45ajarpit4v4o1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCQsD17BXhOJfztspD0JddXFk-9LkjhSFQ"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380211533338-g1a7ko491lbso5o0k45ajarpit4v4o1s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "380211533338-1rriilmsp3go7jb0afvrgrrbu1gl23cd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.votaciones.appvotacionesg10"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +48,12 @@
           "package_name": "com.groupg10.firebaseconn2"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "380211533338-g1a7ko491lbso5o0k45ajarpit4v4o1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCQsD17BXhOJfztspD0JddXFk-9LkjhSFQ"
@@ -39,7 +61,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380211533338-g1a7ko491lbso5o0k45ajarpit4v4o1s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "380211533338-1rriilmsp3go7jb0afvrgrrbu1gl23cd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.votaciones.appvotacionesg10"
+              }
+            }
+          ]
         }
       }
     },
@@ -50,7 +84,20 @@
           "package_name": "com.votaciones.appvotacionesg10"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "380211533338-qtr87ssm7evm4m07tjc2kr285utooc0m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.votaciones.appvotacionesg10",
+            "certificate_hash": "45135d3bf1093838c55e611223392f3da7f50306"
+          }
+        },
+        {
+          "client_id": "380211533338-g1a7ko491lbso5o0k45ajarpit4v4o1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCQsD17BXhOJfztspD0JddXFk-9LkjhSFQ"
@@ -58,7 +105,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380211533338-g1a7ko491lbso5o0k45ajarpit4v4o1s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "380211533338-1rriilmsp3go7jb0afvrgrrbu1gl23cd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.votaciones.appvotacionesg10"
+              }
+            }
+          ]
         }
       }
     }
