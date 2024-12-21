@@ -9,23 +9,43 @@ class LoginPage extends StatelessWidget {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  String mapErrorAuth(String errorMessage) {
+    if (errorMessage.contains("invalid-credential")) {
+      return "Usuario o contraseña incorrectos";
+    } else if (errorMessage.contains("invalid-email")) {
+      return "El correo no es válido";
+    } else {
+      return "Ocurrio un error al crear la cuenta";
+    }
+  }
+
   Future<void> _loginWithEmailPassword(BuildContext context) async {
     try {
-      _firebaseAuth
-          .signInWithEmailAndPassword(
+      await _firebaseAuth.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
-      )
-          .then((value) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-        );
-      });
+      );
+      //     .then((value) {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => HomePage(),
+      //     ),
+      //   );
+      // });
     } catch (e) {
-      print(e);
+      print("...........................................");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            mapErrorAuth(e.toString()),
+          ),
+        ),
+      );
     }
   }
 
