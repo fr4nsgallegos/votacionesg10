@@ -1,7 +1,9 @@
 import 'package:appvotacionesg10/pages/create_account_page.dart';
 import 'package:appvotacionesg10/pages/home_page.dart';
 import 'package:appvotacionesg10/widgets/field_box.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccountPage extends StatelessWidget {
@@ -13,6 +15,7 @@ class CreateAccountPage extends StatelessWidget {
   TextEditingController _phoneController = TextEditingController();
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String mapErrorAuth(String errorMessage) {
     if (errorMessage.contains("email-already-in-use")) {
@@ -22,7 +25,8 @@ class CreateAccountPage extends StatelessWidget {
     } else if (errorMessage.contains("weak-password")) {
       return "La contraseña no cumple con los estándares";
     } else {
-      return "Ocurrio un error al crear la cuenta";
+      // return "Ocurrio un error al crear la cuenta";
+      return errorMessage;
     }
   }
 
@@ -32,13 +36,41 @@ class CreateAccountPage extends StatelessWidget {
           await _firebaseAuth.createUserWithEmailAndPassword(
               email: _emailController.text, password: _passwordController.text);
 
-      print(userCredential);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ),
-      );
+      String uid = userCredential.user!
+          .uid; //capturando el uid que se creo al momento de registrar mi cuenta
+
+      try {
+        await _firestore.collection("users").doc(uid).set({
+          "email": _emailController.text,
+          "name": _nameController.text,
+          "lastname": _lastnameController.text,
+          "phone": _phoneController.text,
+          "createdAt": FieldValue.serverTimestamp(),
+        });
+        // print(userCredential);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            behavior: SnackBarBehavior.floating,
+            content: Text("Usuario registrado exitosamente"),
+          ),
+        );
+      } catch (firestoreError) {
+        //Si falla la inserción en Firestore, se debe eliminar el usuario que se ha creado por auth
+        await userCredential.user!.delete();
+        throw Exception(
+            "Error al insertar los datos en firestoe: $firestoreError");
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -63,6 +95,11 @@ class CreateAccountPage extends StatelessWidget {
     double widthScreen = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        // floatingActionButton: FloatingActionButton(onPressed: () {
+        //   _firestore.collection("users").get().then((e) {
+        //     print(e);
+        //   });
+        // }),
         resizeToAvoidBottomInset: true,
         body: Stack(
           children: [
