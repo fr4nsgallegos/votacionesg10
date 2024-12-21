@@ -268,7 +268,9 @@ class LoginPage extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                     shape: CircleBorder(),
                                     padding: EdgeInsets.all(8)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _signInWithGoogle(context);
+                                },
                                 child: Image.asset(
                                   "assets/icons/google.png",
                                   height: 30,
