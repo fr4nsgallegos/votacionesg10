@@ -1,4 +1,5 @@
 import 'package:appvotacionesg10/pages/create_account_page.dart';
+import 'package:appvotacionesg10/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,14 +9,21 @@ class LoginPage extends StatelessWidget {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> _loginWithEmailPassword() async {
+  Future<void> _loginWithEmailPassword(BuildContext context) async {
     try {
       _firebaseAuth
           .signInWithEmailAndPassword(
-            email: _emailController.text,
-            password: _passwordController.text,
-          )
-          .then((value) {});
+        email: _emailController.text,
+        password: _passwordController.text,
+      )
+          .then((value) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      });
     } catch (e) {
       print(e);
     }
@@ -167,7 +175,7 @@ class LoginPage extends StatelessWidget {
                         height: 70,
                         child: ElevatedButton(
                           onPressed: () {
-                            _loginWithEmailPassword();
+                            _loginWithEmailPassword(context);
                           },
                           child: Text(
                             "LOGIN",

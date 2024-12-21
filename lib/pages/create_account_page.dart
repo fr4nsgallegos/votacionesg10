@@ -1,4 +1,5 @@
 import 'package:appvotacionesg10/pages/create_account_page.dart';
+import 'package:appvotacionesg10/pages/home_page.dart';
 import 'package:appvotacionesg10/widgets/field_box.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,31 @@ class CreateAccountPage extends StatelessWidget {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  String mapErrorAuth(String errorMessage) {
+    if (errorMessage.contains("email-already-in-use")) {
+      return "La dirección de correo ya esta en uso";
+    } else if (errorMessage.contains("invalid-email")) {
+      return "El correo no es válido";
+    } else if (errorMessage.contains("weak-password")) {
+      return "La contraseña no cumple con los estándares";
+    } else {
+      return "Ocurrio un error al crear la cuenta";
+    }
+  }
+
   Future<void> _createAccountEmailPassword(BuildContext context) async {
     try {
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
               email: _emailController.text, password: _passwordController.text);
+
       print(userCredential);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -28,7 +48,9 @@ class CreateAccountPage extends StatelessWidget {
           ),
           behavior: SnackBarBehavior.floating,
           content: Text(
-            e.toString(),
+            mapErrorAuth(
+              e.toString(),
+            ),
           ),
         ),
       );
