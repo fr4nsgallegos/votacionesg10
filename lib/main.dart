@@ -11,6 +11,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await NotificationService.initMessaging();
+  await NotificationService().suscribeToTopic("ganadores");
   runApp(
     MaterialApp(
       home: HomePage(),

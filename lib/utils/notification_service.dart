@@ -7,8 +7,21 @@ class NotificationService {
   static initMessaging() async {
     String token = await firebaseMessaging.getToken() ?? '-';
     print(token);
+
     FirebaseMessaging.onMessage.listen(_onMessage);
     FirebaseMessaging.onBackgroundMessage(_onBackGroundMessage);
+  }
+
+  //SUSCRIBIR A UN TOPIC
+  Future<void> suscribeToTopic(String topic) async {
+    await firebaseMessaging.subscribeToTopic(topic);
+    print("Dispositivo suscrito al topic: $topic");
+  }
+
+  //CANCELAR LA SUSCRIPCIÓN AL TOPIC
+  Future<void> unsubscribeFromTopic(String topic) async {
+    await firebaseMessaging.unsubscribeFromTopic(topic);
+    print("Dispositivo eliminado del topic $topic");
   }
 
   //DETECTAR NOTIFICACIÓN CUANDO EL APP ESTA ABIERTO
