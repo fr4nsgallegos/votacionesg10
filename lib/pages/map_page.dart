@@ -1,3 +1,5 @@
+import 'package:appvotacionesg10/utils/home_controller.dart';
+import 'package:appvotacionesg10/utils/map_style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -8,7 +10,7 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   Set<Marker> _markers = {};
-
+  final _mapController = HomeController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +18,8 @@ class _MapPageState extends State<MapPage> {
         title: Text("Map Page"),
       ),
       body: GoogleMap(
+        // style: mapStyle,
+        onMapCreated: _mapController.onMapCreated,
         onTap: (LatLng position) {
           print("lat: ${position.latitude} - lang:${position.longitude}");
           _markers.add(
