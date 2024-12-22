@@ -26,6 +26,13 @@ class _MapPageState extends State<MapPage> {
             Marker(
               markerId: MarkerId(_markers.length.toString()),
               position: position,
+              infoWindow: InfoWindow(
+                title: "Mi marcador ${_markers.length.toString()}",
+                snippet: "Este es un marcador con innfowindow ",
+                onTap: () {
+                  print("ESTOY YAPEANDO");
+                },
+              ),
             ),
           );
           setState(() {});

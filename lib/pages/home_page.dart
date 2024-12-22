@@ -1,8 +1,23 @@
 import 'package:appvotacionesg10/pages/map_page.dart';
 import 'package:appvotacionesg10/utils/notification_service.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
+  Future<void> _lauchUrl() async {
+    String _url = "https://pub.dev/packages/url_launcher";
+
+    Uri url = Uri.parse(_url);
+    await launchUrl(url);
+
+    // if (await canLaunchUrl(url)) {
+
+    //   await launchUrl(url);
+    // } else {
+    //   throw "no se puede abrir $url";
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +38,12 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: Text("GO TO MAP"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _lauchUrl();
+              },
+              child: Text("URL LAUNCHER"),
             ),
           ],
         ),
