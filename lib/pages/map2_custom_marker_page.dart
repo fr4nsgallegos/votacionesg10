@@ -35,9 +35,28 @@ class _Map2CustomMarkerPageState extends State<Map2CustomMarkerPage> {
           onTap: () {
             _customInfoWindowController.addInfoWindow!(
               Container(
+                padding: EdgeInsets.all(16),
                 width: 200,
-                height: 200,
-                color: Colors.red,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Esta es la dirección",
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
+                    Spacer(),
+                    Text(
+                      "Este el el punto de patida, traer agua",
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
               pos1,
             );
@@ -67,11 +86,17 @@ class _Map2CustomMarkerPageState extends State<Map2CustomMarkerPage> {
               zoom: 16,
             ),
             markers: _markers,
+            onTap: (position) {
+              _customInfoWindowController.hideInfoWindow!();
+            },
+            onCameraMove: (position) {
+              _customInfoWindowController.onCameraMove!();
+            },
           ),
           CustomInfoWindow(
             controller: _customInfoWindowController,
             width: 200,
-            height: 200,
+            height: 100,
           ),
         ],
       ),
