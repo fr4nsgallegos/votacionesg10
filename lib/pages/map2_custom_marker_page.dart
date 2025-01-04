@@ -2,7 +2,12 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Map2CustomMarkerPage extends StatelessWidget {
+class Map2CustomMarkerPage extends StatefulWidget {
+  @override
+  State<Map2CustomMarkerPage> createState() => _Map2CustomMarkerPageState();
+}
+
+class _Map2CustomMarkerPageState extends State<Map2CustomMarkerPage> {
   Set<Marker> _markers = {};
 
   CustomInfoWindowController _customInfoWindowController =
@@ -17,24 +22,58 @@ class Map2CustomMarkerPage extends StatelessWidget {
 
     BitmapDescriptor designBit1 = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(size: Size(94, 94)), "assets/icons/orange.png");
-    BitmapDescriptor designBit2 = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(94, 94)), "assets/icons/blue.png");
-    BitmapDescriptor designBit3 = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(94, 94)), "assets/icons/green.png");
+    // BitmapDescriptor designBit2 = await BitmapDescriptor.fromAssetImage(
+    //     ImageConfiguration(size: Size(94, 94)), "assets/icons/blue.png");
+    // BitmapDescriptor designBit3 = await BitmapDescriptor.fromAssetImage(
+    //     ImageConfiguration(size: Size(94, 94)), "assets/icons/green.png");
+
+    auxMarkers.add(
+      Marker(
+          markerId: MarkerId("1"),
+          position: pos1,
+          icon: designBit1,
+          onTap: () {
+            _customInfoWindowController.addInfoWindow!(
+              Container(
+                width: 200,
+                height: 200,
+                color: Colors.red,
+              ),
+              pos1,
+            );
+          }),
+    );
+    _markers = auxMarkers;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    addMarkers();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        onMapCreated: (GoogleMapController controller) {
-          _customInfoWindowController.googleMapController = controller;
-        },
-        initialCameraPosition: CameraPosition(
-          target: LatLng(-8.076623758462205, -79.05342567332829),
-          zoom: 17,
-        ),
-        markers: _markers,
+      body: Stack(
+        children: [
+          GoogleMap(
+            onMapCreated: (GoogleMapController controller) {
+              _customInfoWindowController.googleMapController = controller;
+            },
+            initialCameraPosition: CameraPosition(
+              target: LatLng(-8.076623758462205, -79.05342567332829),
+              zoom: 16,
+            ),
+            markers: _markers,
+          ),
+          CustomInfoWindow(
+            controller: _customInfoWindowController,
+            width: 200,
+            height: 200,
+          ),
+        ],
       ),
     );
   }
