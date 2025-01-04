@@ -13,6 +13,33 @@ class _Map2CustomMarkerPageState extends State<Map2CustomMarkerPage> {
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
 
+  Widget customWindowContainer(String title, String subtitle) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      width: 200,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.white),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(fontSize: 12, color: Colors.white),
+          ),
+          Spacer(),
+          Text(
+            subtitle,
+            style: TextStyle(fontSize: 12, color: Colors.white),
+          ),
+        ],
+      ),
+    );
+  }
+
   addMarkers() async {
     Set<Marker> auxMarkers = Set();
 
@@ -22,45 +49,48 @@ class _Map2CustomMarkerPageState extends State<Map2CustomMarkerPage> {
 
     BitmapDescriptor designBit1 = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(size: Size(94, 94)), "assets/icons/orange.png");
-    // BitmapDescriptor designBit2 = await BitmapDescriptor.fromAssetImage(
-    //     ImageConfiguration(size: Size(94, 94)), "assets/icons/blue.png");
-    // BitmapDescriptor designBit3 = await BitmapDescriptor.fromAssetImage(
-    //     ImageConfiguration(size: Size(94, 94)), "assets/icons/green.png");
+    BitmapDescriptor designBit2 = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(94, 94)), "assets/icons/blue.png");
+    BitmapDescriptor designBit3 = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(94, 94)), "assets/icons/green.png");
 
     auxMarkers.add(
       Marker(
-          markerId: MarkerId("1"),
-          position: pos1,
-          icon: designBit1,
+        markerId: MarkerId("1"),
+        position: pos1,
+        icon: designBit1,
+        onTap: () {
+          _customInfoWindowController.addInfoWindow!(
+            customWindowContainer("Punto de partida", "Traer agua"),
+            pos1,
+          );
+        },
+      ),
+    );
+
+    auxMarkers.add(
+      Marker(
+          markerId: MarkerId("2"),
+          position: pos2,
+          icon: designBit2,
           onTap: () {
             _customInfoWindowController.addInfoWindow!(
-              Container(
-                padding: EdgeInsets.all(16),
-                width: 200,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Esta es la dirección",
-                      style: TextStyle(fontSize: 12, color: Colors.white),
-                    ),
-                    Spacer(),
-                    Text(
-                      "Este el el punto de patida, traer agua",
-                      style: TextStyle(fontSize: 12, color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-              pos1,
-            );
+                customWindowContainer("Punto de en medio", "Tomar agua"), pos2);
           }),
+    );
+
+    auxMarkers.add(
+      Marker(
+        markerId: MarkerId("3"),
+        position: pos3,
+        icon: designBit3,
+        onTap: () {
+          _customInfoWindowController.addInfoWindow!(
+              customWindowContainer(
+                  "Punti de llegada", "Botar las aguas en la baura"),
+              pos3);
+        },
+      ),
     );
     _markers = auxMarkers;
     setState(() {});
@@ -88,6 +118,21 @@ class _Map2CustomMarkerPageState extends State<Map2CustomMarkerPage> {
             markers: _markers,
             onTap: (position) {
               _customInfoWindowController.hideInfoWindow!();
+              _markers.add(
+                Marker(
+                    markerId: MarkerId(
+                      (_markers.length + 1).toString(),
+                    ),
+                    icon: BitmapDescriptor.defaultMarker,
+                    position: position,
+                    onTap: () {
+                      _customInfoWindowController.addInfoWindow!(
+                          customWindowContainer("Punto agregado recientemente",
+                              "Información del punto"),
+                          position);
+                    }),
+              );
+              setState(() {});
             },
             onCameraMove: (position) {
               _customInfoWindowController.onCameraMove!();
@@ -97,6 +142,7 @@ class _Map2CustomMarkerPageState extends State<Map2CustomMarkerPage> {
             controller: _customInfoWindowController,
             width: 200,
             height: 100,
+            offset: 60,
           ),
         ],
       ),
