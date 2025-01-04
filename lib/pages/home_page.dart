@@ -1,3 +1,4 @@
+import 'package:appvotacionesg10/pages/map2_custom_marker_page.dart';
 import 'package:appvotacionesg10/pages/map_page.dart';
 import 'package:appvotacionesg10/utils/notification_service.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,17 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: Text("GO TO MAP"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Map2CustomMarkerPage(),
+                  ),
+                );
+              },
+              child: Text("GO TO MAP WITH CUSTOM MARKER"),
             ),
             ElevatedButton(
               onPressed: () {
